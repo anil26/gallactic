@@ -12,7 +12,6 @@ QUnit.test("Testing sample input provided with the problem", function (assert) {
     
     var response = interGalacticTransaction.init(input);
     console.log(response);
-    debugger;
     assert.deepEqual(response, result, "The output matches the expected result");
 
 });
