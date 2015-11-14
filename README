@@ -1,0 +1,22 @@
+Problem One: Merchant's Guide to the Galaxy
+..........................................
+The "interGallacticTransaction" helps merchant in credit calculation while travelling in galaxy.The code is segregated just for the readability.Production code may not contain so much segregation of modules in different files.
+
+This project has following files:
+i)InterGallacticMain.js:It is responsible for initiating the inter gallactic transaction.
+ii)SetStatement.js:This module is responsible for setting new units in auxiliary table.
+iii)QunitTestInterGallactic:This module has the testcases testing various modules.
+iv)InputInterGallactic:This module contains only the input array.
+v)ProcessQuestions:This module processes the  question and send valid array to calculate credit.
+vi)CalculateCredit:This modules takes one array as an argument and process it to calculate value in decimals.
+vii)Validator:This is the  helper function for all the modules,validating different conditions.
+
+
+
+Instructions to install, configure, and to run the programs
+i.Extract the files provided with the zip file.
+ii.Save all the files in same folder.
+iii).Open the "qunitTestInterGallactic.html" file provided in any browser.
+iv).It will open up the page running all the test cases mentioned in "qunitTestInterGallactic.js" file using "Qunit test framework".
+v).For observing the output of the sample input provided in "inputInterGallactic.js" file,open the developer console and observe.
+vi)Any input can be provided by modifying the input array kept in "inputInterGallactic.js" and looking in the developer console.
