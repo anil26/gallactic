@@ -4,7 +4,7 @@ var validator={
     regexForSplitWithSpaces : /\s/gi,
     regexForNumber : /\s+\d[0-9]*\s+(credit){1}s?/gi,
     regexForRomansymbol : /\s{1}I|V|X|L|C|D\s*/,
-    regexIs : /\s+is\s*/i,
+    regexIs : /\s+is\s*/ig,
     validateSubtraction : function (elemFirst, elemSecond) {
         if (!elemFirst || !elemSecond) {
         return false;
