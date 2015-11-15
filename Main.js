@@ -15,13 +15,16 @@ var interGalacticTransaction = function () {
         var noOfSentences=inputArr.length;
         var metalValueTable = {};
         for (var sentence= 0; sentence < noOfSentences; sentence++) {
-            if (!validator.isQuestion(inputArr[sentence])) //If not a question
+            
+
+            if (validator.isQuestion(inputArr[sentence])) //If not a questionchange
             {
                 debugger;
-                setStatement(inputArr[sentence], metalValueTable,response);
+                processQuestions(inputArr[sentence],metalValueTable,response);
             } else { //if its a question
                 debugger;
-                processQuestions(inputArr[sentence],metalValueTable,response);
+                setStatement(inputArr[sentence], metalValueTable,response);
+
                 
             }
         

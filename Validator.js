@@ -9,20 +9,16 @@ var validator={
         if (!elemFirst || !elemSecond) {
         return false;
         }
-         return (RomanTable[elemFirst]!=undefined && RomanTable[elemFirst].canBeSubtractedFrom.indexOf(elemSecond)!==-1);
+         return (RomanTable[elemFirst]!==undefined && RomanTable[elemFirst].canBeSubtractedFrom.indexOf(elemSecond)!==-1);
 
     },
     validateConsecutiveRepetition : function (str) {
         var regex1 = /I{4,}|C{4,}|X{4,}|M{4,}/g;
-        if (arguments.length === 0) 
-        return false;
-        else
-            return (typeof(str)!=="string" || str.search(regex1)!==-1); 
+        return (typeof(str)!=="string" || str.search(regex1)!==-1 || arguments.length===0); 
         },
     isQuestion : function (str) {
-        if (str.search(validator.regexForQuestions) === -1) {
-            return false;
-        } else return true;
+        return (str.search(validator.regexForQuestions) !== -1);
+        
     },
     validateSingleOccurence : function (str,response) {
         var forD = (str.match(/D/g) || []).length;
@@ -37,6 +33,5 @@ var validator={
     }
    
 };
-
 
 

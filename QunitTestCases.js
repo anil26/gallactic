@@ -7,6 +7,8 @@ var result = ["This is wrong set statement",
 
 // Testing sample input provided with the problem statement
 
+
+
 QUnit.test("Testing sample input provided with the problem", function (assert) {
     //response=[];
     
@@ -60,7 +62,7 @@ QUnit.test("Testing validateSubtractionAPI for null ", function (assert) {
 //Testing validateConsecutiveRepetitionAPI function.
 QUnit.test("Testing validateConsecutiveRepetitionAPI for null", function (assert) {
 
-    assert.equal(validator.validateConsecutiveRepetition(), false, "No arguments,No consecutive repetition of I,X,C,M");
+    assert.equal(validator.validateConsecutiveRepetition(), true, "No arguments,No consecutive repetition of I,X,C,M");
 });
 QUnit.test("Testing validateConsecutiveRepetitionAPI for valid strings", function (assert) {
 
@@ -71,7 +73,7 @@ QUnit.test("Testing validateConsecutiveRepetitionAPI for invalid strings", funct
     assert.equal(validator.validateConsecutiveRepetition("IICCCCC"), true, "Invalid string,consecutive repetition of I,X,C,M");
 });
 
-QUnit.test("Testing validatecalculateCreditAPI for values when letters are in descending order of their values", function (assert) {
+QUnit.test("Testing validatecalculateCreditAPI for values when letters are   unordered of their values", function (assert) {
     var response=[];
     
     assert.equal(calculateCredit(["M", "C", "M", "X", "L", "I", "V"],response), 1944, "MCMXLIV evaluates to correct value");
@@ -89,7 +91,7 @@ QUnit.test("Testing validatecalculateCreditAPI for blank or no arguments", funct
     }
 });
 
-QUnit.test("Testing validatecalculateCreditAPI for values when letters are in descending order of their values", function (assert) {
+QUnit.test("Testing validatecalculateCreditAPI for values when letters are  unordered", function (assert) {
     var response=[];
     
     assert.equal(calculateCredit(["M", "C", "M", "X", "L", "I", "V"],response), 1944, "MCMXLIV evaluates to correct value");
@@ -124,8 +126,6 @@ QUnit.test("Testing validatecalculateCreditAPI for non-array type is sent", func
 
 });
 //"243923fsdlkclsd edksp 3201-309"
-
-
 
 QUnit.test("Testing processInput via init for wrong statements", function (assert) {
     //response=[];

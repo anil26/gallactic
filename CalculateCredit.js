@@ -1,20 +1,18 @@
 var calculateCredit = function (arr,response) {
     debugger;
-    if (arguments.length === 0 || !arr) {
-
-        //response.push("No input is provided");
-        throw "No input is provided";
-    } else if (!Array.isArray(arr)) {
+    if (arguments.length === 0 || !arr ) {
+    throw "No input is provided";
+    }  
+    if (!Array.isArray(arr)) {
         response.push("Input is not of type Array");
         throw "Input is not of type Array";
-    } else if (arr.length === 0) {
+    }  
+    if(arr.length === 0) {
+       debugger;
         response.push("Input array is blank,Wrong set statement");
         throw "Input array is blank,Wrong set statement";
     }
-
-
     var str = arr.join("");
-
     if (validator.validateConsecutiveRepetition(str)) {
         
         response.push("[I,C,X,M] repeats more than 3 times consecutively");
