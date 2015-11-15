@@ -17,12 +17,12 @@ var interGalacticTransaction = function () {
         for (var sentence= 0; sentence < noOfSentences; sentence++) {
             
 
-            if (validator.isQuestion(inputArr[sentence])) //If not a questionchange
+            if (validator.isQuestion(inputArr[sentence])) //If its a questionchange
             {
-                debugger;
+                
                 processQuestions(inputArr[sentence],metalValueTable,response);
-            } else { //if its a question
-                debugger;
+            } else { //if not a question
+                
                 setStatement(inputArr[sentence], metalValueTable,response);
 
                 

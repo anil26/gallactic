@@ -5,24 +5,21 @@ var setStatement = function (sentence, metalValueTable, response) {
         var array = [],
         keyValueObject = {},
         sentenceObject=getSentenceObject(sentence,response);
-        if (sentenceObject)
+        if(!sentenceObject){
+           response.push("This is wrong set statement");
+            return; 
+        }
         sentenceObject.setter(keyValueObject,sentence,metalValueTable,response);
-        else{
-            response.push("This is wrong set statement");
+        
+        };
+
+
+        if (!(typeof (sentence) === "string" && metalValueTable.constructor === Object)) {
+            response.push("This is the wrong input statement");
             return;
-        }
-        
-     };
-
-
-        if (typeof (sentence) === "string" && metalValueTable.constructor === Object) {
-        
-            return setMetalTableEntry(sentence, metalValueTable,response);
-        } else {
-
-        response.push("This is the wrong input statement");
-        return;
-        }
+            
+        } 
+        return setMetalTableEntry(sentence, metalValueTable,response);
 
 };
 //assumption Table value are not repeating

@@ -28,9 +28,11 @@ var calculateCreditHelper = function (arr,response) {
     var j = arr.length - 1;
     var ans = 0;
     var str = arr.join("");
-    if (validator.validateSingleOccurence(str,response)) {
-        
-        while (j >= 0) {
+    if(!(validator.validateSingleOccurence(str,response))){
+        response.push("Invalid statement");
+        return;
+    }
+    while (j >= 0) {
             if (j - 1 < 0) {
                 
                     ans += RomanTable[arr[j]].value;
@@ -55,10 +57,8 @@ var calculateCreditHelper = function (arr,response) {
                 
                         
         }
-    }else{
-        response.push("Invalid statement");
-        
-    }
+    
+
     
     return ans;
 };
