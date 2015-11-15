@@ -33,6 +33,7 @@ var calculateCreditHelper = function (arr,response) {
         return;
     }
     while (j >= 0) {
+            debugger;
             if (j - 1 < 0) {
                 
                     ans += RomanTable[arr[j]].value;
@@ -40,25 +41,23 @@ var calculateCreditHelper = function (arr,response) {
                     return ans;
 
             }  
-            if (RomanTable[arr[j - 1]].value < RomanTable[arr[j]].value) {
-                if (validator.validateSubtraction(arr[j - 1], arr[j])) {
-                    ans += RomanTable[arr[j]].value - RomanTable[arr[j - 1]].value;
-                    j = j - 2;
-                    } 
-                    continue;
-            }
-            
+             
             if(RomanTable[arr[j - 1]].value >= RomanTable[arr[j]].value){
                     ans+=RomanTable[arr[j]].value;
                     j--;
-                continue;
+                    continue;
             }
 
+            if(!validator.validateSubtraction(arr[j-1],arr[j]))
+            return;
+            else{
+                ans += RomanTable[arr[j]].value - RomanTable[arr[j - 1]].value;
+                j = j - 2;
+                
+            }
+           
                 
                         
         }
-    
-
-    
-    return ans;
+        return ans;
 };

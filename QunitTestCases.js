@@ -7,7 +7,10 @@ var result = ["This is wrong set statement",
 
 // Testing sample input provided with the problem statement
 
-
+QUnit.test("Testing validatecalculateCreditAPI for values when Roman letters unordered", function (assert) {
+   var response=[];
+    assert.equal(calculateCredit(["M", "C", "M", "I", "I", "I"],response), 1903, "MCMIII evaluates to correct value");
+});
 
 QUnit.test("Testing sample input provided with the problem", function (assert) {
     //response=[];
