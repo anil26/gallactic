@@ -1,57 +1,48 @@
-var setStatement = function (sentence, Table, response) {
+var setStatement = function (sentence, metalValueTable, response) {
 
-    var setMetalTableEntry = function (sentence, Table) {
-        var arr = [];
-        var keyValueObject = {};
-        var type = symbolMapper.findTypeOfThis(sentence, response, keyValueObject);
-        //var extractedValue=extractValue(sentence,response);
+    var setMetalTableEntry = function (sentence, metalValueTable) {
+        var array = [],
+        keyValueObject = {},
+        type = symbolMapper.findTypeOfThis(sentence, response, keyValueObject);
         if (type == "A") {
-
-
-            setValueInTable(Table, keyValueObject.key, keyValueObject.value);
+                setValueInTable(metalValueTable, keyValueObject.key, keyValueObject.value);
         } else if (type == "B") {
+            
+
             var arrayAfterSplitIs = sentence.split(validator.regexIs);
             if (arrayAfterSplitIs.length > 2) {
 
                 response.push("Invalid set statement");
                 throw "Invalid set statement";
             }
-            var firstHalfBeforeIs = arrayAfterSplitIs[0];
-
-            var splitFirstHalf = firstHalfBeforeIs.split(validator.regexForSplitWithSpaces); //getting contents before "is"
-            var j = 0;
-            while (Table.hasOwnProperty(splitFirstHalf[j]) && j < splitFirstHalf.length) { //pushing the conversion in roman form in temporary array
-                arr.push(Table[splitFirstHalf[j]]);
-                j++;
+            var firstHalfBeforeIs = arrayAfterSplitIs[0],
+            splitFirstHalf = firstHalfBeforeIs.split(validator.regexForSplitWithSpaces),//getting contents before "is"
+            splitFirstHalfLength=splitFirstHalf.length,
+            j = 0;
+            arrayBuilder(splitFirstHalf,array,metalValueTable,j,splitFirstHalfLength-2);
+            var metalValue=calculateCredit(array,response);
+            if(!metalValueTable.hasOwnProperty(splitFirstHalf[splitFirstHalfLength-1])){
+                setValueInTable(metalValueTable,splitFirstHalf[splitFirstHalfLength-1],keyValueObject.value/metalValue);
+                
             }
-
-            if (j + 1 === splitFirstHalf.length) {
-                var metalValue = calculateCredit(arr, response);
-                if (isNaN(metalValue)) {
-                    return metalValue;
+            else{
+                response.push("Invalid set statement");
+                
                 }
-                setValueInTable(Table, splitFirstHalf[j], keyValueObject.value / metalValue);
-
-
-            } else {
+            
+        } else {
                 response.push("This is wrong set statement");
                 return;
                 //throw "Wrong set statement";
 
             }
 
-        } else {
-            response.push("This is wrong set statement");
-            return;
-            // throw "Wrong set statement"; 
-        }
+        
+     };
 
 
-    };
-
-
-    if (typeof (sentence) === "string" && Table.constructor === Object) {
-        return setMetalTableEntry(sentence, Table);
+    if (typeof (sentence) === "string" && metalValueTable.constructor === Object) {
+        return setMetalTableEntry(sentence, metalValueTable);
     } else {
 
         response.push("This is the wrong input statement");

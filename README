@@ -13,7 +13,6 @@ vii)Validator.js:This is the  helper function for all the modules,validating dif
 viii)QunitTest.html:This is the html file for displaying the output on the browser.It includes "Qunit" CDN URL.So to run this project,internet is required.
 
 
-
 Instructions to install, configure, and to run the programs
 i.Extract the files provided with the zip file.
 ii.Save all the files in same folder.
