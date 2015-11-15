@@ -1,25 +1,86 @@
 var setStatement = function (sentence, metalValueTable, response) {
 
-    var setMetalTableEntry = function (sentence, metalValueTable) {
+    var setMetalTableEntry = function (sentence, metalValueTable,response) {
+        debugger;
         var array = [],
         keyValueObject = {},
-        type = symbolMapper.findTypeOfThis(sentence, response, keyValueObject);
-        if (type == "A") {
-                setValueInTable(metalValueTable, keyValueObject.key, keyValueObject.value);
-        } else if (type == "B") {
-            
+        sentenceObject=getSentenceObject(sentence,response);
+        if (sentenceObject)
+        sentenceObject.execute(keyValueObject,sentence,metalValueTable,response);
+        else{
+            response.push("This is wrong set statement");
+            return;
+        }
+        
+     };
 
+
+        if (typeof (sentence) === "string" && metalValueTable.constructor === Object) {
+        
+            return setMetalTableEntry(sentence, metalValueTable,response);
+        } else {
+
+        response.push("This is the wrong input statement");
+        return;
+        }
+
+};
+//assumption Table value are not repeating
+var setValueInTable = function (Table, key, value) {
+    if (!Table || Table.constructor !== Object || !value || !key) {
+
+        throw "Arguments are incorrect";
+    } 
+    Table[key] = value;
+};
+
+
+var symbolMapper={
+
+        isTypeOfThis:function(sentence,response){
+        var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
+        value=sentenceAfterSplit[2];
+        return (sentenceAfterSplit.length === 3 && sentenceAfterSplit.indexOf("is") < sentenceAfterSplit.indexOf(value) && sentenceAfterSplit.indexOf("is") === 1);
+        },
+        execute:function(keyValueObject,sentence,metalValueTable,response){
+            var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
+            keyValueObject.key = sentenceAfterSplit[0];
+            keyValueObject.value = sentenceAfterSplit[2];
+            setValueInTable(metalValueTable,keyValueObject.key,keyValueObject.value);
+
+        }
+
+};
+var metalValueSetter={
+
+        isTypeOfThis:function(sentence,response){
+            debugger;
+            var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
+            return (sentenceAfterSplit.length > 3);
+
+        },
+        execute:function(keyValueObject,sentence,metalValueTable,response){
+            var array=[];
+            var tempValue = sentence.match(validator.regexForNumber);
+            if (tempValue !== null) {
+                tempValue = parseInt(tempValue);
+                keyValueObject.value = tempValue;
+            }else{
+                response.push("This is wrong set statement");
+                return;
+            }
             var arrayAfterSplitIs = sentence.split(validator.regexIs);
             if (arrayAfterSplitIs.length > 2) {
 
                 response.push("Invalid set statement");
-                throw "Invalid set statement";
+                return;
             }
             var firstHalfBeforeIs = arrayAfterSplitIs[0],
             splitFirstHalf = firstHalfBeforeIs.split(validator.regexForSplitWithSpaces),//getting contents before "is"
             splitFirstHalfLength=splitFirstHalf.length,
             j = 0;
             arrayBuilder(splitFirstHalf,array,metalValueTable,j,splitFirstHalfLength-2);
+            debugger;
             var metalValue=calculateCredit(array,response);
             if(!metalValueTable.hasOwnProperty(splitFirstHalf[splitFirstHalfLength-1])){
                 setValueInTable(metalValueTable,splitFirstHalf[splitFirstHalfLength-1],keyValueObject.value/metalValue);
@@ -27,71 +88,25 @@ var setStatement = function (sentence, metalValueTable, response) {
             }
             else{
                 response.push("Invalid set statement");
-                
+                return;
                 }
             
-        } else {
-                response.push("This is wrong set statement");
-                return;
-                //throw "Wrong set statement";
-
-            }
-
-        
-     };
-
-
-    if (typeof (sentence) === "string" && metalValueTable.constructor === Object) {
-        return setMetalTableEntry(sentence, metalValueTable);
-    } else {
-
-        response.push("This is the wrong input statement");
-        return;
-    }
+        }
 
 };
 
-var setValueInTable = function (Table, key, value) {
-    if (Table.constructor !== Object || !Table || !value || !key) {
-
-        throw "Arguments are incorrect";
-    } else {
-        if (!Table.hasOwnProperty(key)) {
-            Table[key] = value;
-        }
-
-    }
+var getSentenceObject=function(sentence,response){
+        debugger;
+        if(symbolMapper.isTypeOfThis(sentence,response))
+            return symbolMapper;
+        if(metalValueSetter.isTypeOfThis(sentence,response))
+            return metalValueSetter;
+        return ;
 };
 
-//There are three types of sentence
-//Type A:prok is V
-//Type B:prok glob silver is 4500 credits.
-//Type C:Invalid strings.
-
-var symbolMapper = {
-
-    findTypeOfThis: function (sentence, response, keyValueObject) {
 
 
-        if (typeof (sentence) !== "string" && !sentence) {
-            return "Not a string";
-        }
-        var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
-        var value = RomanTable.hasOwnProperty(sentenceAfterSplit[2]) !==undefined ? sentenceAfterSplit[2] : undefined;
-        if (sentenceAfterSplit.length === 3 && sentenceAfterSplit.indexOf("is") < sentenceAfterSplit.indexOf(value) && sentenceAfterSplit.indexOf("is") === 1) {
 
-            keyValueObject.key = sentenceAfterSplit[0];
-            keyValueObject.value = sentenceAfterSplit[2];
-            return "A";
-        } else if (sentenceAfterSplit.length > 3) {
-            var tempValue = sentence.match(validator.regexForNumber); //grabbed value out of the sentence for type "asdf dfsa silver is 456 credits"
-            if (tempValue !== null) {
-                tempValue = parseInt(tempValue);
-                keyValueObject.value = tempValue;
-                return "B";
-            } else return "C";
-        }
-        return "C";
-    }
 
-};
+
+

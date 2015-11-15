@@ -15,7 +15,7 @@
              var counter4 = lengthSecondHalf - 2;
              var counter3 = 0;
 
-             arrayBuilder(secondHalfAfterSplit, array2, metalValueTable, counter3, counter4);
+             arrayBuilder(secondHalfAfterSplit, array2, metalValueTable, counter3, counter4,response);
 
              var value4 = calculateCredit(array2, response);
              secondHalfAfterSplit.pop(1);
@@ -24,7 +24,7 @@
          } else if (type === "B") {
              var counter2 = lengthSecondHalf - 3;
              var counter1 = 0;
-             arrayBuilder(secondHalfAfterSplit, array2, metalValueTable, counter1, counter2);
+             arrayBuilder(secondHalfAfterSplit, array2, metalValueTable, counter1, counter2,response);
 
              var value3 = calculateCredit(array2, response);
              var metal = secondHalfAfterSplit[lengthSecondHalf - 2];
@@ -52,17 +52,21 @@
      } else if (!RomanTable.hasOwnProperty(Table[tempArr[tempArr.length - 1]])) {
          return "B";//how much is glob prok silver
      }
-     return "C";//invalid
+     return "C";//invalid questions.
 
  };
- var arrayBuilder = function (array, toBeFilledArray, metalValueTable, lowerIndex, higherIndex) {
+ 
+
+ var arrayBuilder = function (array, toBeFilledArray, metalValueTable, lowerIndex, higherIndex,response) {
+     debugger;
      while (lowerIndex <= higherIndex) {
-         if (!metalValueTable.hasOwnProperty(array[lowerIndex])) {
+         if (!metalValueTable.hasOwnProperty(array[lowerIndex])|| !isNaN(metalValueTable[array[lowerIndex]])){//change
              response.push("Dont know what  are you talking about?");
              throw "Dont know what you are you talking about?";
-         } else if (isNaN(metalValueTable[array[lowerIndex]])) {
-             toBeFilledArray.push(metalValueTable[array[lowerIndex]]);
-             lowerIndex++;
          }
-     }
+            
+        toBeFilledArray.push(metalValueTable[array[lowerIndex]]);
+        lowerIndex++;
+         
+            }
  };

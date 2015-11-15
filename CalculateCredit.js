@@ -1,5 +1,5 @@
 var calculateCredit = function (arr,response) {
-
+    debugger;
     if (arguments.length === 0 || !arr) {
 
         //response.push("No input is provided");
