@@ -1,7 +1,7 @@
 var setStatement = function (sentence, metalValueTable, response) {
 
     var setMetalTableEntry = function (sentence, metalValueTable,response) {
-        debugger;
+        
         var array = [],
         keyValueObject = {},
         sentenceObject=getSentenceObject(sentence,response);
@@ -73,7 +73,7 @@ var symbolMapper={
 var metalValueSetter={
 
         isTypeOfThisAnswer:function(sentence,response){
-            debugger;
+            
             var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
             return (sentenceAfterSplit.length > 3);
 
@@ -100,7 +100,7 @@ var metalValueSetter={
             splitFirstHalfLength=splitFirstHalf.length,
             j = 0;
             arrayBuilder(splitFirstHalf,array,metalValueTable,j,splitFirstHalfLength-2,response);
-            debugger;
+            
             var metalValue=calculateCredit(array,response);
             if(!metalValueTable.hasOwnProperty(splitFirstHalf[splitFirstHalfLength-1])){
                 setValueInTable(metalValueTable,splitFirstHalf[splitFirstHalfLength-1],keyValueObject.value/metalValue);
@@ -138,7 +138,7 @@ var metalValueSetter={
 };
 
 var getSentenceObject=function(sentence,response){
-        debugger;
+        
         if(symbolMapper.isTypeOfThisAnswer(sentence,response))
             return symbolMapper;
         if(metalValueSetter.isTypeOfThisAnswer(sentence,response))

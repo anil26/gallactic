@@ -7,11 +7,6 @@ var result = ["This is wrong set statement",
 
 // Testing sample input provided with the problem statement
 
-QUnit.test("Testing validatecalculateCreditAPI for values when Roman letters unordered", function (assert) {
-   var response=[];
-    assert.equal(calculateCredit(["M", "C", "M", "I", "I", "I"],response), 1903, "MCMIII evaluates to correct value");
-});
-
 QUnit.test("Testing sample input provided with the problem", function (assert) {
     //response=[];
     
@@ -133,7 +128,7 @@ QUnit.test("Testing validatecalculateCreditAPI for non-array type is sent", func
 QUnit.test("Testing processInput via init for wrong statements", function (assert) {
     //response=[];
     assert.equal(interGalacticTransaction.init(["243923fsdlkclsd edksp 3201-309"]), "This is wrong set statement","Wrong statement call to processInput");
-    debugger;
+    
 });
 QUnit.test("Testing processInput via init for wrong statements", function (assert) {
     //response=[];

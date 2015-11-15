@@ -1,5 +1,5 @@
 var calculateCredit = function (arr,response) {
-    debugger;
+    
     if (arguments.length === 0 || !arr ) {
     throw "No input is provided";
     }  
@@ -8,7 +8,7 @@ var calculateCredit = function (arr,response) {
         throw "Input is not of type Array";
     }  
     if(arr.length === 0) {
-       debugger;
+       
         response.push("Input array is blank,Wrong set statement");
         throw "Input array is blank,Wrong set statement";
     }
@@ -33,7 +33,7 @@ var calculateCreditHelper = function (arr,response) {
         return;
     }
     while (j >= 0) {
-            debugger;
+            
             if (j - 1 < 0) {
                 
                     ans += RomanTable[arr[j]].value;
