@@ -48,11 +48,11 @@
      var tempArr = temp[1].split(" ");
      tempArr.pop(1);
      if (Table.hasOwnProperty(tempArr[tempArr.length - 1]) && RomanTable.hasOwnProperty(Table[tempArr[tempArr.length - 1]])) { //how much is glob prok?
-         return "A";
+         return "A";//how much is glob prok tegj
      } else if (!RomanTable.hasOwnProperty(Table[tempArr[tempArr.length - 1]])) {
-         return "B";
+         return "B";//how much is glob prok silver
      }
-     return "C";
+     return "C";//invalid
 
  };
  var arrayBuilder = function (array, toBeFilledArray, metalValueTable, lowerIndex, higherIndex) {
