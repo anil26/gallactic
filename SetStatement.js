@@ -86,7 +86,7 @@ var symbolMapper = {
             return "Not a string";
         }
         var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
-        var value = RomanTable.hasOwnProperty(sentenceAfterSplit[2]) !== ndefined ? sentenceAfterSplit[2] : undefined;
+        var value = RomanTable.hasOwnProperty(sentenceAfterSplit[2]) !==undefined ? sentenceAfterSplit[2] : undefined;
         if (sentenceAfterSplit.length === 3 && sentenceAfterSplit.indexOf("is") < sentenceAfterSplit.indexOf(value) && sentenceAfterSplit.indexOf("is") === 1) {
 
             keyValueObject.key = sentenceAfterSplit[0];

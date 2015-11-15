@@ -11,6 +11,7 @@ RomanTable = {
 
 var interGalacticTransaction = function () {
     
+    var processInput = function (inputArr,response) {
         var noOfSentences=inputArr.length;
         var metalValueTable = {};
         for (var sentence= 0; sentence < noOfSentences; sentence++) {
