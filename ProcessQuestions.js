@@ -6,7 +6,7 @@
      
  
         if (occurencesIsArray=== null || occurencesIsArray.length !== 1){
-            debugger;
+            
             response.push("Dont know what are you talking about?");
              return;
 

@@ -50,11 +50,10 @@ var calculateCreditHelper = function (arr,response) {
 
             if(!validator.validateSubtraction(arr[j-1],arr[j]))
             return;
-            else{
-                ans += RomanTable[arr[j]].value - RomanTable[arr[j - 1]].value;
+            ans += RomanTable[arr[j]].value - RomanTable[arr[j - 1]].value;
                 j = j - 2;
                 
-            }
+            
            
                 
                         
