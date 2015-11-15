@@ -31,60 +31,36 @@ var calculateCreditHelper = function (arr,response) {
     var ans = 0;
     var str = arr.join("");
     if (validator.validateSingleOccurence(str,response)) {
+        
         while (j >= 0) {
             if (j - 1 < 0) {
-                if (isNaN(arr[j])) {
+                
                     ans += RomanTable[arr[j]].value;
-                    j--;
-                } else {
-                    ans += arr[j];
-                    j--;
-                }
+                    
+                    return ans;
 
-            } else if (isNaN(arr[j]) && isNaN(arr[j - 1])) {
-                if (RomanTable[arr[j - 1]].value < RomanTable[arr[j]].value) {
-                    if (validator.validateSubtraction(arr[j - 1], arr[j])) {
-                        ans += RomanTable[arr[j]].value - RomanTable[arr[j - 1]].value;
-                        j = j - 2;
-                    } else {
-                        ans += arr[j];
-                        j--;
-                    }
-
-                } else {
-                    ans += RomanTable[arr[j]].value;
-                    j--;
-                }
-
-            } else if (!isNaN(arr[j]) && isNaN(arr[j - 1])) {
-                if (arr[j] > RomanTable[arr[j - 1]].value) {
-                    ans = ans + arr[j] - RomanTable[arr[j - 1]].value;
+            }  
+            if (RomanTable[arr[j - 1]].value < RomanTable[arr[j]].value) {
+                if (validator.validateSubtraction(arr[j - 1], arr[j])) {
+                    ans += RomanTable[arr[j]].value - RomanTable[arr[j - 1]].value;
                     j = j - 2;
-                } else {
-                    ans += arr[j];
+                    } 
+                    continue;
+            }
+            
+            if(RomanTable[arr[j - 1]].value >= RomanTable[arr[j]].value){
+                    ans+=RomanTable[arr[j]].value;
                     j--;
-                }
-            } else if (isNaN(arr[j]) && !isNaN(arr[j - 1])) {
-                if (RomanTable[arr[j]].value > arr[j - 1]) {
-                    ans += RomanTable[arr[j]].value - arr[j - 1];
-                    j = j - 2;
-                } else {
-                    ans += RomanTable[arr[j]].value;
-                }
-            } else if (!isNaN(arr[j]) && !isNaN(arr[j - 1])) {
-                if (arr[j] > arr[j - 1]) {
-                    ans += arr[j] - arr[j - 1];
-                    j = j - 2;
-                } else {
-                    ans += arr[j];
-                    j--;
-                }
+                continue;
             }
 
-
-
-
+                
+                        
         }
+    }else{
+        response.push("Invalid statement");
+        
     }
+    
     return ans;
 };

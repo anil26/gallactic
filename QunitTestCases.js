@@ -71,6 +71,11 @@ QUnit.test("Testing validateConsecutiveRepetitionAPI for invalid strings", funct
     assert.equal(validator.validateConsecutiveRepetition("IICCCCC"), true, "Invalid string,consecutive repetition of I,X,C,M");
 });
 
+QUnit.test("Testing validatecalculateCreditAPI for values when letters are in descending order of their values", function (assert) {
+    var response=[];
+    
+    assert.equal(calculateCredit(["M", "C", "M", "X", "L", "I", "V"],response), 1944, "MCMXLIV evaluates to correct value");
+});
 
 
 //Testing calculate creditcalculator.
