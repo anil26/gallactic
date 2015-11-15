@@ -6,7 +6,7 @@ var setStatement = function (sentence, metalValueTable, response) {
         keyValueObject = {},
         sentenceObject=getSentenceObject(sentence,response);
         if (sentenceObject)
-        sentenceObject.execute(keyValueObject,sentence,metalValueTable,response);
+        sentenceObject.setter(keyValueObject,sentence,metalValueTable,response);
         else{
             response.push("This is wrong set statement");
             return;
@@ -37,29 +37,51 @@ var setValueInTable = function (Table, key, value) {
 
 var symbolMapper={
 
-        isTypeOfThis:function(sentence,response){
+        isTypeOfThisAnswer:function(sentence,response){
         var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
         value=sentenceAfterSplit[2];
         return (sentenceAfterSplit.length === 3 && sentenceAfterSplit.indexOf("is") < sentenceAfterSplit.indexOf(value) && sentenceAfterSplit.indexOf("is") === 1);
         },
-        execute:function(keyValueObject,sentence,metalValueTable,response){
+        setter:function(keyValueObject,sentence,metalValueTable,response){
             var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
             keyValueObject.key = sentenceAfterSplit[0];
             keyValueObject.value = sentenceAfterSplit[2];
             setValueInTable(metalValueTable,keyValueObject.key,keyValueObject.value);
 
+        },
+        isTypeOfThisQuestion:function(sentence,metalValueTable,response){
+            var temp = sentence.split(validator.regexIs);
+            var tempArr = temp[1].split(" ");
+            tempArr.pop(1);
+            return metalValueTable.hasOwnProperty(tempArr[tempArr.length - 1]) && RomanTable.hasOwnProperty(metalValueTable[tempArr[tempArr.length - 1]]);
+        },
+        answer:function(sentence,metalValueTable,response){
+            var array=[];
+            var secondHalfAfterSplit = sentence.split(validator.regexIs)[1].split(" ");
+
+            var lengthSecondHalf = secondHalfAfterSplit.length;
+            var counter4 = lengthSecondHalf - 2;
+             var counter3 = 0;
+
+             arrayBuilder(secondHalfAfterSplit, array, metalValueTable, counter3, counter4,response);
+
+             var value4 = calculateCredit(array, response);
+             secondHalfAfterSplit.pop(1);
+             response.push(secondHalfAfterSplit.join(" ") + " is " + value4 + " Credits");
+             return;
         }
+
 
 };
 var metalValueSetter={
 
-        isTypeOfThis:function(sentence,response){
+        isTypeOfThisAnswer:function(sentence,response){
             debugger;
             var sentenceAfterSplit = sentence.split(validator.regexForSplitWithSpaces);
             return (sentenceAfterSplit.length > 3);
 
         },
-        execute:function(keyValueObject,sentence,metalValueTable,response){
+        setter:function(keyValueObject,sentence,metalValueTable,response){
             var array=[];
             var tempValue = sentence.match(validator.regexForNumber);
             if (tempValue !== null) {
@@ -79,7 +101,7 @@ var metalValueSetter={
             splitFirstHalf = firstHalfBeforeIs.split(validator.regexForSplitWithSpaces),//getting contents before "is"
             splitFirstHalfLength=splitFirstHalf.length,
             j = 0;
-            arrayBuilder(splitFirstHalf,array,metalValueTable,j,splitFirstHalfLength-2);
+            arrayBuilder(splitFirstHalf,array,metalValueTable,j,splitFirstHalfLength-2,response);
             debugger;
             var metalValue=calculateCredit(array,response);
             if(!metalValueTable.hasOwnProperty(splitFirstHalf[splitFirstHalfLength-1])){
@@ -91,15 +113,37 @@ var metalValueSetter={
                 return;
                 }
             
+        },
+        isTypeOfThisQuestion:function(sentence,metalValueTable,response){
+            var temp = sentence.split(validator.regexIs);
+            var tempArr = temp[1].split(" ");
+            tempArr.pop(1);
+            return (!RomanTable.hasOwnProperty(metalValueTable[tempArr[tempArr.length - 1]]));
+        },
+        answer:function(sentence,metalValueTable,response){
+                var array=[];
+                var secondHalfAfterSplit = sentence.split(validator.regexIs)[1].split(" ");
+
+                var lengthSecondHalf = secondHalfAfterSplit.length;
+                var counter2 = lengthSecondHalf - 3;
+                var counter1 = 0;
+                arrayBuilder(secondHalfAfterSplit, array, metalValueTable, counter1, counter2,response);
+
+                var value3 = calculateCredit(array, response);
+                var metal = secondHalfAfterSplit[lengthSecondHalf - 2];
+                secondHalfAfterSplit.pop(1);
+                response.push(secondHalfAfterSplit.join(" ") + " is " + value3 * metalValueTable[metal] + " Credits");
+                return;
         }
+
 
 };
 
 var getSentenceObject=function(sentence,response){
         debugger;
-        if(symbolMapper.isTypeOfThis(sentence,response))
+        if(symbolMapper.isTypeOfThisAnswer(sentence,response))
             return symbolMapper;
-        if(metalValueSetter.isTypeOfThis(sentence,response))
+        if(metalValueSetter.isTypeOfThisAnswer(sentence,response))
             return metalValueSetter;
         return ;
 };
