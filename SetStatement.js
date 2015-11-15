@@ -22,7 +22,7 @@ var setStatement = function (sentence, metalValueTable, response) {
         return setMetalTableEntry(sentence, metalValueTable,response);
 
 };
-//assumption Table value are not repeating
+//Assumption Table value are not repeating
 var setValueInTable = function (Table, key, value) {
     if (!Table || Table.constructor !== Object || !value || !key) {
 
@@ -53,12 +53,12 @@ var symbolMapper={
             return metalValueTable.hasOwnProperty(tempArr[tempArr.length - 1]) && RomanTable.hasOwnProperty(metalValueTable[tempArr[tempArr.length - 1]]);
         },
         answer:function(sentence,metalValueTable,response){
-            var array=[];
-            var secondHalfAfterSplit = sentence.split(validator.regexIs)[1].split(" ");
+            var array=[],
+            secondHalfAfterSplit = sentence.split(validator.regexIs)[1].split(" "),
 
-            var lengthSecondHalf = secondHalfAfterSplit.length;
-            var counter4 = lengthSecondHalf - 2;
-             var counter3 = 0;
+            lengthSecondHalf = secondHalfAfterSplit.length,
+            counter4 = lengthSecondHalf - 2,
+            counter3 = 0;
 
              arrayBuilder(secondHalfAfterSplit, array, metalValueTable, counter3, counter4,response);
 
@@ -81,13 +81,14 @@ var metalValueSetter={
         setter:function(keyValueObject,sentence,metalValueTable,response){
             var array=[];
             var tempValue = sentence.match(validator.regexForNumber);
-            if (tempValue !== null) {
+            if(tempValue===null){
+               response.push("This is wrong set statement");
+                return; 
+            }
+            
                 tempValue = parseInt(tempValue);
                 keyValueObject.value = tempValue;
-            }else{
-                response.push("This is wrong set statement");
-                return;
-            }
+            
             var arrayAfterSplitIs = sentence.split(validator.regexIs);
             if (arrayAfterSplitIs.length > 2) {
 
@@ -118,16 +119,16 @@ var metalValueSetter={
             return (!RomanTable.hasOwnProperty(metalValueTable[tempArr[tempArr.length - 1]]));
         },
         answer:function(sentence,metalValueTable,response){
-                var array=[];
-                var secondHalfAfterSplit = sentence.split(validator.regexIs)[1].split(" ");
+                var array=[],
+                secondHalfAfterSplit = sentence.split(validator.regexIs)[1].split(" "),
 
-                var lengthSecondHalf = secondHalfAfterSplit.length;
-                var counter2 = lengthSecondHalf - 3;
-                var counter1 = 0;
+                lengthSecondHalf = secondHalfAfterSplit.length,
+                counter2 = lengthSecondHalf - 3,
+                counter1 = 0;
                 arrayBuilder(secondHalfAfterSplit, array, metalValueTable, counter1, counter2,response);
 
-                var value3 = calculateCredit(array, response);
-                var metal = secondHalfAfterSplit[lengthSecondHalf - 2];
+                var value3 = calculateCredit(array, response),
+                metal = secondHalfAfterSplit[lengthSecondHalf - 2];
                 secondHalfAfterSplit.pop(1);
                 response.push(secondHalfAfterSplit.join(" ") + " is " + value3 * metalValueTable[metal] + " Credits");
                 return;

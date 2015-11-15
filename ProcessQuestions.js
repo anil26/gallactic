@@ -23,7 +23,8 @@
  };
 
  var arrayBuilder = function (array, toBeFilledArray, metalValueTable, lowerIndex, higherIndex,response) {
-     
+     if(lowerIndex>higherIndex)
+        return;
      while (lowerIndex <= higherIndex) {
          if (!metalValueTable.hasOwnProperty(array[lowerIndex])|| !isNaN(metalValueTable[array[lowerIndex]])){//change
              response.push("Dont know what  are you talking about?");
