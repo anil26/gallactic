@@ -54,9 +54,6 @@ var calculateCreditHelper = function (arr,response) {
                 j = j - 2;
                 
             
-           
-                
-                        
         }
         return ans;
 };
